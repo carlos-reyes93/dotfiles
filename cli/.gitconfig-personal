@@ -1,0 +1,9 @@
+[user]
+	name = Carlos Reyes
+	email = contacto@carlosreyc.dev
+[core]
+	editor = nvim
+	sshCommand = ssh -i ~/.ssh/carlosreyc
+[branch]
+	sort = -commiterdate
+	

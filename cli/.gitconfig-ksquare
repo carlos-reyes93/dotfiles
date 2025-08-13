@@ -1,0 +1,9 @@
+[user]
+	name = Carlos Reyes
+	email = carlos.reyes@theksquaregroup.com
+[core]
+	editor = nvim
+	sshCommand = ssh -i ~/.ssh/git_ksquare
+[branch]
+	sort = -commiterdate
+	
