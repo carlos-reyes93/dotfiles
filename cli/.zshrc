@@ -9,6 +9,19 @@ autoload -Uz promptinit && promptinit && prompt pure
 # make sure the --git-dir is the same as the
 # directory where you created the repo above.
 # alias config="git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
+
+# NOTE FZF
+source <(fzf --zsh)
+export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git "
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
+export FZF_DEFAULT_OPTS="--height 50% --layout=default --border --color=hl:#2dd4bf"
+# TMUX FZF Options
+export FZF_TMUX_OPTS=" -p90%,70%"
+
+# Setup fzf previews using BAT
+export FZF_CTRL_T_OPTS="--preview 'bat --color=always -n --line-range :500 {}'"
+export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
 alias ls="ls -lh --color"
 alias pbcopy="xclip -selection clipboard"
 alias pbpaste="xclip -selection clipboard -o"
