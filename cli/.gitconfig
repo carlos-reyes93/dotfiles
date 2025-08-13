@@ -1,0 +1,12 @@
+[core]
+	editor = nvim
+
+
+[includeIf "gitdir:~/dev/ksquare/"]
+	path = "~/.gitconfig-ksquare"
+[includeIf "gitdir:~/dev/personal/"]
+	path = "~/.gitconfig-personal"
+[includeIf "gitdir:~/.dotfiles/"]
+	path = "~/.gitconfig-personal"
+[init]
+	defaultBranch = main
