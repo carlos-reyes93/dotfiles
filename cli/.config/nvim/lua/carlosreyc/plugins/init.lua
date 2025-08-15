@@ -47,7 +47,15 @@ return {
       spec = {
         { '<leader>s', group = '[S]earch' },
         { '<leader>t', group = '[T]oggle' },
-        { '<leader>t', group = 'Git [H]unk', mode = { 'n', 'v' } },
+        { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+        { '<leader>w', proxy = '<c-w>', group = '[W]indows' },
+        {
+          '<leader>b',
+          group = '[B]uffers',
+          expand = function()
+            return require('which-key.extras').expand.buf()
+          end,
+        },
       },
     },
   },

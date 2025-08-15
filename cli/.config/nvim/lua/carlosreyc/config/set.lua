@@ -3,6 +3,9 @@
 
 vim.g.have_nerd_font = true
 
+vim.opt.number = true
+vim.opt.relativenumber = true
+
 vim.o.mouse = 'a'
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
@@ -13,8 +16,6 @@ vim.opt.smartindent = true
 vim.opt.smarttab = true
 vim.opt.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
-vim.opt.number = true
-vim.opt.relativenumber = true
 vim.opt.cursorline = true
 vim.opt.signcolumn = 'yes:1'
 vim.opt.scrolloff = 8
@@ -43,7 +44,7 @@ end)
 vim.o.undofile = true
 
 vim.o.updatetime = 250
-vim.o.timeoutlen = 500
+vim.o.timeoutlen = 300
 
 vim.o.splitright = true
 vim.o.splitbelow = true
