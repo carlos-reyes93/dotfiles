@@ -30,6 +30,7 @@ return {
       lua = { 'stylua' },
       rust = { 'rustfmt' },
       c = { 'clang_format' },
+      python = { 'black' },
     },
   },
 }
