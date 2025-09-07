@@ -118,8 +118,11 @@ return {
 
       local capabilities = require('blink.cmp').get_lsp_capabilities()
       local servers = {
+        -- Rust
         rust_analyzer = {},
+        -- GO
         gopls = {},
+        -- LuaLS
         lua_ls = {
           settings = {
             Lua = {
@@ -127,6 +130,57 @@ return {
                 callSnippet = 'Replace',
               },
               diagnostics = { disable = { 'missing-fields' } },
+            },
+          },
+        },
+        -- TypescriptLS
+        ts_ls = {
+          enabled = false,
+        },
+        -- ESLint
+        eslint = {
+          settings = {
+            workingDirectories = { mode = 'auto' },
+          },
+        },
+        -- Typescript
+        vtsls = {
+          filetypes = {
+            'javascript',
+            'javascriptreact',
+            'javascript.jsx',
+            'typescript',
+            'typescriptreact',
+            'typescript.tsx',
+          },
+          settings = {
+            complete_function_calls = true,
+            vtsls = {
+              enableMoveToFileCodeAction = true,
+              autoUseWorkspaceTsdk = true,
+              experimental = {
+                completion = {
+                  enableServerSideFuzzyMatch = true,
+                  entriesLimit = 40,
+                },
+              },
+            },
+            typescript = {
+              tsserver = {
+                maxTsServerMemory = 5120,
+              },
+              updateImportsOnFileMove = { enabled = 'always' },
+              suggest = {
+                completeFunctionCalls = true,
+              },
+              inlayHints = {
+                enumMemberValues = { enabled = true },
+                functionLikeReturnTypes = { enabled = true },
+                parameterNames = { enabled = 'literals' },
+                parameterTypes = { enabled = true },
+                propertyDeclarationTypes = { enabled = true },
+                variableTypes = { enabled = false },
+              },
             },
           },
         },
