@@ -30,6 +30,15 @@ set('n', '-', '<cmd>Oil<cr>', { desc = 'Open Parent Directory' })
 
 set('n', '<leader>bd', '<cmd>bd<cr>', { desc = '[B]uffer [D]elete' })
 
+-- " Navigate quickfix list
+-- nnoremap <a-j> <cmd>cnext<cr>
+-- nnoremap <a-k> <cmd>cprev<cr>
+-- nnoremap <a-J> <cmd>cnfile<cr>
+-- nnoremap <a-K> <cmd>cNfile<cr>
+
+set('n', '<a-j>', '<cmd>cnext<cr>', { desc = 'Next Quickfix list item' })
+set('n', '<a-k>', '<cmd>cprev<cr>', { desc = 'Next Quickfix list item' })
+
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlights text when yanking',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),

@@ -118,6 +118,10 @@ return {
 
       local capabilities = require('blink.cmp').get_lsp_capabilities()
       local servers = {
+        -- Powershell
+        powershell_es = {},
+        -- Bicep
+        bicep = {},
         -- Rust
         rust_analyzer = {},
         -- GO
@@ -132,10 +136,6 @@ return {
               diagnostics = { disable = { 'missing-fields' } },
             },
           },
-        },
-        -- TypescriptLS
-        ts_ls = {
-          enabled = false,
         },
         -- ESLint
         eslint = {

@@ -33,8 +33,8 @@ return {
           extra = false,
         },
       }
-      vim.keymap.del('n', 'gcc')
-      vim.keymap.set('n', 'gc', require('Comment.api').toggle.linewise.current)
+      -- vim.keymap.del('n', 'gcc')
+      -- vim.keymap.set('n', 'gc', require('Comment.api').toggle.linewise.current)
 
       -- Remap <C-/> in normal, visual, and insert modes
 

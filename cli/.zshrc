@@ -1,6 +1,6 @@
 # now, simply add these two lines in your ~/.zshrc
 # source antidote
-source '/usr/share/zsh-antidote/antidote.zsh'
+source "$HOME/.antidote/antidote.zsh"
 # initialize plugins statically with ${ZDOTDIR:-~}/.zsh_plugins.txt
 antidote load
 
@@ -42,3 +42,8 @@ if [ -f '/home/carlos/google-cloud-sdk/path.zsh.inc' ]; then . '/home/carlos/goo
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/carlos/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/carlos/google-cloud-sdk/completion.zsh.inc'; fi
 export PATH=$PATH:$HOME/go/bin
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"

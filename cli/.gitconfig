@@ -2,11 +2,10 @@
 	editor = nvim
 
 
-[includeIf "gitdir:~/dev/ksquare/"]
-	path = "~/.gitconfig-ksquare"
-[includeIf "gitdir:~/dev/personal/"]
-	path = "~/.gitconfig-personal"
-[includeIf "gitdir:~/.dotfiles/"]
-	path = "~/.gitconfig-personal"
 [init]
 	defaultBranch = main
+[credential]
+	helper = store
+[user]
+	name = Carlos Reyes
+	email = contacto@carlosreyc.dev

@@ -72,3 +72,9 @@ vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI', 'BufEnter' }, {
     end
   end,
 })
+-- Set *.bicep filetype detection
+vim.filetype.add {
+  extension = {
+    bicep = 'bicep',
+  },
+}
