@@ -29,5 +29,8 @@ set -g fish_color_selection 'white'  '--bold'  '--background=brblack'
 set -g fish_color_user brgreen
 set -g fish_color_valid_path --underline
 
+bind alt-R '/home/charly/dotfiles/scripts/fzf-repos.sh' 
+bind alt-S '/home/charly/dotfiles/scripts/fzf-tmux-sessions.sh' 
+
 # Install Starship
 starship init fish | source
