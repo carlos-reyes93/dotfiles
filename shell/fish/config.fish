@@ -6,6 +6,8 @@
 # Load all saved ssh keys
 # /usr/bin/ssh-add -A ^/dev/null
 
+set -gx EDITOR nvim
+
 # Fish syntax highlighting
 set -g fish_color_autosuggestion '555'  'brblack'
 set -g fish_color_cancel -r
