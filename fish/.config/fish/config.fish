@@ -2,9 +2,7 @@
 
 # Configure Jump
 # status --is-interactive; and source (jump shell fish | psub)
-
-# Load all saved ssh keys
-/usr/bin/ssh-add -A ^/dev/null
+fish_ssh_agent
 
 set -gx EDITOR nvim
 
