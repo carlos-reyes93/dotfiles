@@ -17,7 +17,7 @@ hl.workspace_rule({
   workspace = "3",
   monitor = "HDMI-A-1",
   persistent = true,
-  default_name = "chat"
+  default_name = "steam"
 })
 hl.workspace_rule({
   workspace = "4",

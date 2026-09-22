@@ -1,10 +1,24 @@
 local home = os.getenv("HOME")
+local noctaliaIPC = "noctalia msg "
 local eww_bin = home .. "/.local/bin/eww"
 local whichkey_window = "whichkey-bottom-right"
+local C = require("config")
 
+local mainMod = C.MOD
 hl.on("hyprland.start", function()
   hl.exec_cmd(eww_bin .. " daemon")
 end)
+
+-- ── special workspaces ──────────────────────────────────────
+local function toggle_special_app(name, class, cmd)
+  local matches = hl.get_windows({ class = class })
+  if #matches == 0 then
+    hl.dispatch(hl.dsp.exec_cmd(
+      string.format("[workspace special:%s silent] %s", name, cmd)
+    ))
+  end
+  hl.dispatch(hl.dsp.workspace.toggle_special(name))
+end
 
 -- ── eww overlay helpers ──────────────────────────────────────
 local function hide_overlay()
@@ -90,17 +104,100 @@ local browsers_entries = {
   { key = "c", label = "Chromium", action = function() hl.exec_cmd("chromium") end },
 }
 
+
+
+
 local apps_entries = {
-  { key = "x", label = "Terminal",  action = function() hl.exec_cmd("foot") end },
-  { key = "b", label = "+Browsers", submap = "browsers",                                                          entries = browsers_entries },
-  { key = "n", label = "Notes",     action = function() hl.exec_cmd(home .. "/.config/hypr/scripts/notes.sh") end },
-  { key = "t", label = "Telegram",  action = function() hl.exec_cmd("telegram-desktop") end },
-  { key = "c", label = "Code",      action = function() hl.exec_cmd("code") end },
+  { key = "t", label = "Terminal",     action = function() hl.exec_cmd(C.terminal) end },
+  { key = "b", label = "+Browsers",    submap = "browsers",                               entries = browsers_entries },
+  { key = "e", label = "File Manager", action = function() hl.exec_cmd(C.fileManager) end },
+  -- { key = "s", label = "+Special workspaces", submap = "special_workspaces",                     entries = special_workspaces_entries },
+  {
+    key = "a",
+    label = "Launcher",
+    action = function()
+      hl.dispatch(hl.dsp.exec_cmd(noctaliaIPC ..
+        "panel-toggle launcher"))
+    end
+  },
+  {
+    key = "k",
+    label = "Noctalia CC",
+    action = function()
+      hl.dispatch(hl.dsp.exec_cmd(noctaliaIPC ..
+        "panel-toggle control-center"))
+    end
+  },
+  {
+    key = "s",
+    label = "Noctalia Settings",
+    action = function()
+      hl.dispatch(hl.dsp.exec_cmd(noctaliaIPC ..
+        "settings-toggle"))
+    end
+  },
 }
 
 local show_apps = make_submap("apps", apps_entries)
 
-hl.bind("SUPER + X", function()
+local window_action_entries = {
+  {
+    key = "f",
+    label = "Fullscreen",
+    action = function()
+      hl.dispatch(hl.dsp.window.fullscreen({ action = "toggle", mode = "fullscreen" }))
+    end
+  },
+
+  {
+    key = "c",
+    label = "Close window",
+    action = function()
+      hl.dispatch(hl.dsp.window.close())
+    end
+  }
+}
+
+local show_win_actions = make_submap("window_actions", window_action_entries)
+
+local special_workspaces_entries = {
+  {
+    key = "d",
+    label = "Discord",
+    action = function() toggle_special_app("discord", "vesktop", "vesktop") end
+  },
+  {
+    key = "g",
+    label = "GSM",
+    action = function() toggle_special_app("gsm", "com.beangate.gamesentenceminer", home .. "/.local/bin/gsm") end
+  },
+  {
+    key = "t",
+    label = "Steam",
+    action = function() toggle_special_app("steam", "steam", "steam") end
+  },
+  {
+    key = "m",
+    label = "Magic",
+    action = function() hl.dispatch(hl.dsp.workspace.toggle_special("magic")) end
+  }
+}
+
+-- Example special workspace (scratchpad)
+-- hl.bind(mainMod .. " + S", hl.dsp.workspace.toggle_special("magic"))
+hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
+local show_special_workspaces = make_submap("special_workspaces", special_workspaces_entries)
+hl.bind(mainMod .. " + S", function()
+  show_special_workspaces()
+  hl.dispatch(hl.dsp.submap("special_workspaces"))
+end)
+
+hl.bind("SUPER + W", function()
+  show_win_actions()
+  hl.dispatch(hl.dsp.submap("window_actions"))
+end)
+
+hl.bind("SUPER + T", function()
   show_apps()
   hl.dispatch(hl.dsp.submap("apps"))
 end)

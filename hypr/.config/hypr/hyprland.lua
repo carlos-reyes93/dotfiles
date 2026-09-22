@@ -2,11 +2,11 @@ require("autostart")
 require("env")
 require("monitors")
 require("workspaces")
-require("keybinds")
 require("layer-rules")
 require("window-rules")
 require("animations")
-require("submap")
+require("keybinds.keybinds")
+require("keybinds.submap")
 
 -------------------------------
 ---- ENVIRONMENT VARIABLES ----

@@ -59,3 +59,65 @@ hl.window_rule({
   },
   pin = true,
 })
+hl.window_rule({
+  name = "steam",
+  match = {
+    class = "^steam"
+  },
+  workspace = "special:steam"
+})
+hl.window_rule({
+  name = "obs",
+  match = {
+    class = "^com.obsproject.Studio"
+  },
+  workspace = "special:gsm"
+})
+hl.window_rule({
+  name = "steam-games-to-ws5",
+  match = {
+    initial_class = "steam_app_.*"
+  },
+  workspace = "5"
+})
+
+hl.on("window.open", function(w)
+  if w.class ~= "firefox" then return end
+  if w.initial_title ~= "Mozilla Firefox" then return end
+
+  local ff_windows = hl.get_windows({ class = "firefox" })
+  if #ff_windows <= 1 then return end
+
+  hl.dispatch(hl.dsp.window.float({ action = "set", window = w }))
+
+  local sub
+  sub = hl.on("window.title", function(tw)
+    if tw.address ~= w.address then return end
+    if tw.title == ""
+        or tw.title == "Mozilla Firefox"
+        or tw.title == "about:blank"
+        or tw.title:match("^about:.*Mozilla Firefox$") then
+      return
+    end
+
+    sub:remove()
+
+    if tw.title:match("^Extension:") then
+      hl.dispatch(hl.dsp.window.resize({ x = 800, y = 600, window = tw }))
+      hl.dispatch(hl.dsp.window.center({ window = tw }))
+      hl.dispatch(hl.dsp.focus({ window = tw }))
+    else
+      hl.dispatch(hl.dsp.window.float({ action = "unset", window = tw }))
+    end
+  end)
+end)
+
+hl.window_rule({
+  name = "gsm-overlay-noblur",
+  match = { title = "GSM Overlay" },
+  no_blur = true,
+  no_shadow = true,
+  no_dim = true,
+  move = "0 0",
+  size = "2560 1440",
+})
