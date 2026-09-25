@@ -1,6 +1,13 @@
+--@type vim.lsp.Config
 return {
-  init_options = {
-    runBaconInBackground = true,
-    runBaconInBackgroundCommandArguments = '--headless -j bacon-ls',
+  settings = {
+    bacon_ls = {
+      backend = "cargo",
+      cargo = {
+        command = "clippy",
+        checkOnSave = true,
+        extraArgs = { "--workspace", "--all-targets" }
+      },
+    },
   },
 }

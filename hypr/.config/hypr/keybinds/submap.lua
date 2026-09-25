@@ -33,15 +33,18 @@ local function items_json_from(entries)
   return "[" .. table.concat(parts, ",") .. "]"
 end
 
+
 local function show_overlay(title, entries)
   hl.exec_cmd(string.format(
     "%s update title='%s' items='%s'",
     eww_bin, title, items_json_from(entries)
   ))
   hide_overlay()
+  local mon = hl.get_active_monitor()
+  local monitor_name = (mon and mon.name) or "0"
   hl.exec_cmd(
     eww_bin .. " open " .. whichkey_window ..
-    " --screen $(hyprctl monitors -j | jq '[.[] | select(.focused==true)][0].id')"
+    " --arg monitor=" .. monitor_name
   )
 end
 
@@ -104,9 +107,6 @@ local browsers_entries = {
   { key = "c", label = "Chromium", action = function() hl.exec_cmd("chromium") end },
 }
 
-
-
-
 local apps_entries = {
   { key = "t", label = "Terminal",     action = function() hl.exec_cmd(C.terminal) end },
   { key = "b", label = "+Browsers",    submap = "browsers",                               entries = browsers_entries },
@@ -157,7 +157,15 @@ local window_action_entries = {
     end
   }
 }
-
+-- hl.on("window.move_to_workspace", function(a, b)
+--   hl.notification.create({
+--     text = "a.class=" .. tostring(a.class) ..
+--         " a.title=" .. tostring(a.title) ..
+--         " | b=" .. tostring(b) ..
+--         " b.name=" .. tostring(b and b.name),
+--     timeout = 50000
+--   })
+-- end)
 local show_win_actions = make_submap("window_actions", window_action_entries)
 
 local special_workspaces_entries = {
@@ -180,11 +188,15 @@ local special_workspaces_entries = {
     key = "m",
     label = "Magic",
     action = function() hl.dispatch(hl.dsp.workspace.toggle_special("magic")) end
+  },
+  {
+    key = "n",
+    label = "Code",
+    action = function() hl.dispatch(hl.dsp.workspace.toggle_special("code")) end
   }
 }
 
 -- Example special workspace (scratchpad)
--- hl.bind(mainMod .. " + S", hl.dsp.workspace.toggle_special("magic"))
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
 local show_special_workspaces = make_submap("special_workspaces", special_workspaces_entries)
 hl.bind(mainMod .. " + S", function()

@@ -121,3 +121,31 @@ hl.window_rule({
   move = "0 0",
   size = "2560 1440",
 })
+-- ── pin special-workspace windows so they can't be dragged out ──
+local pin_map = {
+  discord = "special:discord",
+  gsm     = "special:gsm",
+  steam   = "special:steam",
+  code    = "special:code",
+}
+
+hl.on("window.open", function(w)
+  local ws_name = w.workspace and w.workspace.name
+  for tag, workspace in pairs(pin_map) do
+    if ws_name == workspace then
+      hl.dispatch(hl.dsp.window.tag({ tag = "+" .. tag, window = w }))
+    end
+  end
+end)
+
+hl.on("window.move_to_workspace", function(w, ws)
+  for tag, workspace in pairs(pin_map) do
+    local tagged = hl.get_windows({ tag = tag })
+    for _, tw in ipairs(tagged) do
+      if tw.address == w.address and ws.name ~= workspace then
+        hl.dispatch(hl.dsp.window.move({ workspace = workspace, window = w }))
+        return
+      end
+    end
+  end
+end)
